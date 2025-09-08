@@ -24,29 +24,84 @@ Paste the following code into your editor:
 
 */
 
-const readline = require('readline-sync');
+// Run: node boolean-expressions-and-conditional-statements.js
+const readline = require("readline-sync");
 
-const hasTorch = true;
-const hasMap = false;
+// ---- Item (simple): torch ----
+const tookTorch = readline
+  .question("Take the torch? (y/n): ")
+  .trim()
+  .toLowerCase() === "y";
 
-console.log("You see two paths: one leads to the mountains, the other to the village.");
-const choice = readline.question("Do you go to the 'mountains' or the 'village'?");
+console.log("\nYou wake up in a dark forest.");
+console.log("Two paths: mountains or village.");
 
-if (choice === "mountains" && hasTorch) {
-  console.log("You safely navigate through the dark mountains.");
-} else if (choice === "mountains" && !hasTorch) {
-  console.log("It's too dark to proceed. You decide to turn back.");
-} else if (choice === "village" || hasMap) {
-  console.log("You find your way to the village.");
+const firstChoice = readline
+  .question("Go to the 'mountains' or the 'village'? ")
+  .trim()
+  .toLowerCase();
+
+// ===== MOUNTAINS (Layer 1) =====
+if (firstChoice === "mountains" && tookTorch) {
+  console.log("\nYour torch lights the rocky trail.");
+
+  // Layer 2
+  const caveOrClimb = readline
+    .question("Do you enter the 'cave' or try to 'climb'? ")
+    .trim()
+    .toLowerCase();
+
+  if (caveOrClimb === "cave") {
+    // Layer 3
+    const openChest = readline
+      .question("You see a small chest. Open it? (y/n): ")
+      .trim()
+      .toLowerCase();
+    if (openChest === "y") {
+      console.log("You find a snack and recover strength. Ending: Safe and fed!");
+    } else {
+      console.log("You leave it and head back safely. Ending: Cautious explorer.");
+    }
+  } else {
+    console.log("The climb is tiring but you reach a lookout. Ending: Nice view!");
+  }
+
+} else if (firstChoice === "mountains" && !tookTorch) {
+  // Boolean example with NOT
+  console.log("\nIt's too dark without a torch. You turn back. Ending: Retreat.");
+
+// ===== VILLAGE (Layer 1) =====
 } else {
-  console.log("You get lost and wander aimlessly.");
+  console.log("\nYou head toward the village.");
+
+  // Layer 2
+  const marketOrInn = readline
+    .question("Do you go to the 'market' or the 'inn'? ")
+    .trim()
+    .toLowerCase();
+
+  if (marketOrInn === "market") {
+    // Layer 3
+    const buyFood = readline
+      .question("A stall sells hot soup. Buy some? (y/n): ")
+      .trim()
+      .toLowerCase();
+    if (buyFood === "y") {
+      console.log("Warm soup lifts your spirits. Ending: Cozy and full.");
+    } else {
+      console.log("You save your coins and move on. Ending: Frugal traveler.");
+    }
+  } else {
+    // inn path
+    // Layer 3
+    const restOrLeave = readline
+      .question("The innkeeper offers a room. 'rest' or 'leave'? ")
+      .trim()
+      .toLowerCase();
+    if (restOrLeave === "rest") {
+      console.log("You sleep well and feel safe. Ending: Rested.");
+    } else {
+      console.log("You leave and follow the road out of town. Ending: Onward.");
+    }
+  }
 }
-
-/* 
-
-Add Customization and expand the game:
-  - Add more choices and scenarios.
-  - Include additional items (e.g., a sword, a compass).
-  - Use nested conditionals and logical operators to create complex outcomes.
-
-*/
